@@ -1,16 +1,23 @@
+
 import 'package:flutter/material.dart';
-import 'package:peliculas/widgets/card_swiper.dart';
 
 
+import 'package:peliculas/providers/movies_provider.dart';
+
+import '../widgets/widgets.dart';
+import 'package:provider/provider.dart';
 
 
 
 class HomeScreen extends StatelessWidget {
 
- 
-
   @override
   Widget build(BuildContext context) {
+
+    final  moviesProvider = Provider.of<MoviesProvider>(context);
+
+    
+
     return  Scaffold(
       appBar: AppBar(
         title: const FittedBox(
@@ -18,23 +25,29 @@ class HomeScreen extends StatelessWidget {
         ),
         
         elevation: 0,
-        actions: [
-          IconButton(
-            icon: Icon( Icons.search_outlined),
+        actions:   [
+             IconButton(
+            icon: const Icon( Icons.search_outlined),
             onPressed: () {},
           
           )
         ],
         
       ),
-      body:  Column(
+      body:  SingleChildScrollView(
+        child: Column(
         children:   [
-
-            CardSwiper()
-
-            //Listado horizontal de peliculas 
+            // Tarjetas principales
+            CardSwiper(movies: moviesProvider.onDisplaymovies),
+            
+            //Slider de peliculas
+            MovieSlider(),
+            
+            
+            
         ]
       ),
+      )
      );
   }
 }
